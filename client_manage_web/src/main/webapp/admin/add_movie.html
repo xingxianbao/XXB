@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>商品编辑</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js">  </script>
+    <script type="text/javascript" src="../js/base_nopagination.js">  </script>
+    <script type="text/javascript" src="../js/service/movieService.js">  </script>
+    <script type="text/javascript" src="../js/service/typeService.js">  </script>
+    <script type="text/javascript" src="../js/service/uploadService.js">  </script>
+    <script type="text/javascript" src="../js/controller/baseController.js">  </script>
+    <script type="text/javascript" src="../js/controller/movieController.js">  </script>
+    <!-- 富文本编辑器 -->
+    <link rel="stylesheet" href="../plugins/kindeditor/themes/default/default.css" />
+    <script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
+    <script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
+
+    <!--//时间JS-->
+    <link type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+
+    <link href="../js/datejs/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.css" type="text/css"/>
+    <link href="../js/datejs/jQuery-Timepicker-Addon/demos.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+    <script src="../js/datejs/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <!--中文-->
+    <script src="../js/datejs/js/jquery.ui.datepicker-zh-CN.js.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/datejs/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+
+
+        jQuery(function () {
+            // 时间设置
+            jQuery('#time').datetimepicker({
+                timeFormat: "HH:mm:ss",
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('textarea[name="content"]', {
+                allowFileManager : true
+            });
+        });
+    </script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="cinema" ng-controller="movieController" ng-init="selectType()">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+
+        <!--tab页-->
+        <div class="nav-tabs-custom">
+            <!--tab头-->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#home" data-toggle="tab">电影基本信息</a>
+                </li>
+                <li >
+                    <a href="#director_upload" data-toggle="tab">导演</a>
+                </li>
+                <li >
+                    <a href="#performer_upload" data-toggle="tab">演员</a>
+                </li>
+                <li >
+                    <a href="#pic2_upload" data-toggle="tab">剧情图片</a>
+                </li>
+            </ul>
+            <!--tab头/-->
+
+            <!--tab内容-->
+            <div class="tab-content">
+
+                <!--表单内容-->{{entity}}
+                <div class="tab-pane active" id="home">
+                    <div class="row data-type">
+
+                        <div class="col-md-2 title">电影名称</div>
+                        <div class="col-md-10 data">
+                            <input type="text" class="form-control"  ng-model="entity.movName"   placeholder="电影名称" value="">
+                        </div>
+
+                        <div class="col-md-2 title">上映时间</div>
+                        <div class="col-md-10 data">
+                            <input class="form-control" name="msgtime" id="time" ng-model="entity.movIndate" placeholder="上映时间">
+                        </div>
+
+                        <div class="col-md-2 title">时长</div>
+                        <div class="col-md-10 data">
+                            <input type="text" class="form-control"  ng-model="entity.movTime"   placeholder="时长分钟" value="">
+                        </div>
+
+                        <div class="col-md-2 title">剧情类型</div>
+                        <div class="col-md-10 data">
+                            <select class="form-control" ng-model="entity.typeId" ng-options="type.typeId as type.typeName for type in typeList">
+                            </select>
+
+
+                        </div>
+
+
+                        <div class="col-md-2 title">类型</div>
+                        <div class="col-md-10 data">
+                            <input type="text" class="form-control"  ng-model="entity.movStyle"   placeholder="2D/3D" value="">
+                        </div>
+
+                        <div class="col-md-2 title">国家</div>
+                        <div class="col-md-10 data">
+                            <input type="text" class="form-control"  ng-model="entity.country"   placeholder="所属国家" value="">
+                        </div>
+
+                        <div class="col-md-2 title">海报封面</div>
+                        <div class="col-md-10 data">
+                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModalPic"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 添加</button>
+                            <img width="60px" ng-src="{{entity.movPic1}}">
+                        </div>
+
+
+                        <div class="col-md-2 title editer">简介</div>
+                        <div class="col-md-10 data editer">
+                            <textarea name="content" style="width:800px;height:400px;visibility:hidden;" ></textarea>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!--导演上传-->
+                <div class="tab-pane" id="director_upload">
+                    <div class="row data-type">
+                        <!-- 颜色图片 -->
+                        <div class="btn-group">
+                            <button type="button" ng-click="director={}" class="btn btn-default" title="新建" data-target="#uploadModal1"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 新建</button>
+
+                        </div>
+
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                            <tr>
+
+                                <th class="sorting">导演名字</th>
+                                <th class="sorting">导演照片</th>
+                                <th class="sorting">操作</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="director in entity.movDirector" >
+                                <td>
+                                    {{director.name}}
+                                </td>
+                                <td>
+                                    <img alt="" ng-src="{{director.img}}" width="100px" height="100px">
+                                </td>
+                                <td> <button type="button" ng-click="deleImage($index,'director')" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <!--演员上传-->
+                <div class="tab-pane" id="performer_upload">
+                    <div class="row data-type">
+                        <!-- 颜色图片 -->
+                        <div class="btn-group">
+                            <button type="button" ng-click="performer={}" class="btn btn-default" title="新建" data-target="#uploadModal2"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 新建</button>
+
+                        </div>
+
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                            <tr>
+
+                                <th class="sorting">演员名字</th>
+                                <th class="sorting">演员照片</th>
+                                <th class="sorting">操作</th>
+                            </thead>
+                            <tbody>
+                            <tr  ng-repeat="performer in entity.movPerformer">
+                                <td>
+                                    {{performer.name}}
+                                </td>
+                                <td>
+                                    <img alt="" ng-src="{{performer.img}}" width="100px" height="100px">
+                                </td>
+                                <td> <button type="button" ng-click="deleImage($index,'performer')" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <!--图片集上传-->
+                <div class="tab-pane" id="pic2_upload">
+                    <div class="row data-type">
+                        <!-- 颜色图片 -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal3"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 新建</button>
+                            {{entity.movPic2}}
+                        </div>
+                        {{pic2}}
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                            <tr>
+                                <th class="sorting">图片</th>
+                                <th class="sorting">操作</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pic in entity.movPic2" >
+                                <td>
+                                    <img alt="" ng-src="{{pic}}" width="100px" height="100px">
+                                </td>
+                                <td> <button type="button" ng-click="deleImage($index,'pic2')" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--tab内容/-->
+            <!--表单内容/-->
+
+        </div>
+
+
+
+
+    </div>
+    <div class="btn-toolbar list-toolbar">
+        <button class="btn btn-primary" ng-click="save()" ><i class="fa fa-save"></i>保存</button>
+        <button class="btn btn-default" >返回列表</button>
+    </div>
+
+</section>
+
+<!-- 上传导演窗口 -->
+<div class="modal fade" id="uploadModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">上传导演图片</h3>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>姓名</td>
+                        <td><input ng-model="director.name"  class="form-control" placeholder="姓名" >  </td>
+                    </tr>
+                    <tr>
+                        <td>照片</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="file" id="director" />
+                                        <button ng-click="uploadFile('director')" class="btn btn-primary" type="button" >
+                                            上传
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <img  ng-src="{{director.img}}" width="200px" height="200px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveImage('director')" class="btn btn-success"  data-dismiss="modal" aria-hidden="true">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 上传演员窗口 -->
+<div class="modal fade" id="uploadModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">上传演员图片</h3>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>姓名</td>
+                        <td><input ng-model="performer.name"  class="form-control" placeholder="姓名" >  </td>
+                    </tr>
+                    <tr>
+                        <td>照片</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="file" id="performer" />
+                                        <button ng-click="uploadFile('performer')" class="btn btn-primary" type="button" >
+                                            上传
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <img  ng-src="{{performer.img}}" width="200px" height="200px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveImage('performer')" class="btn btn-success"  data-dismiss="modal" aria-hidden="true">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 上传图片集窗口 -->
+<div class="modal fade" id="uploadModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">图片集</h3>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>照片</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="file" id="pic2" />
+                                        <button ng-click="uploadFile('pic2')" class="btn btn-primary" type="button" >
+                                            上传
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <img  ng-src="{{pic2.img}}" width="200px" height="200px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveImage('pic2')" class="btn btn-success"  data-dismiss="modal" aria-hidden="true">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 上传海报窗口 -->
+<div class="modal fade" id="uploadModalPic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">上传封面海报</h3>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>图片</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="file" id="pic" />
+                                        <button ng-click="uploadFile('pic')" class="btn btn-primary" type="button" >
+                                            上传
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <img  ng-src="{{entity.movPic1}}" width="200px" height="200px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <!--配置不需要拦截认证的资源-->
+    <http pattern="/login.html" security="none"></http>
+    <http pattern="/register.html" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+    <http pattern="/seller/add.do" security="none"></http>
+
+    <!--配置http请求拦截的节点
+        use-expressions="false"  表示不应用框架的el表达式
+        intercept-url pattern="/**"  拦截路径 所有请求
+        access="ROLE_ADMIN"  表示只有用户拥有ROLE_ADMIN 角色才可以登陆
+                             角色字符串设置规则 必须ROLE_开头
+    -->
+    <http use-expressions="false">
+        <intercept-url pattern="/**" access="ROLE_SELLER"></intercept-url>
+        <!--表示默认登陆表单-->
+        <form-login login-page="/login.html"
+                    default-target-url="/admin/index.html"
+                    always-use-default-target="true"
+                    authentication-failure-url="/login.html"/>
+        <!--csrf表示伪造跨域攻击 关闭规则-->
+        <csrf disabled="true"></csrf>
+        <!--配置同源策略否则页面的框架内页不显示-->
+        <headers>
+            <frame-options policy="SAMEORIGIN"></frame-options>
+        </headers>
+        <!--默认路径是logout 默认页面login.html-->
+        <logout logout-url="/logout"
+                 logout-success-url="/login.html"
+                 invalidate-session="true"/>
+    </http>
+
+    <!--配置权限框架的认证节点-->
+    <authentication-manager>
+        <!--需要自定义userService实现类 设置id
+         自定义实现类必须实现框架的接口 UserDetailServicve
+        -->
+        <authentication-provider user-service-ref="userServiceImpl">
+            <password-encoder hash="bcrypt"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userServiceImpl" class="cn.edu.aynu.rjxy.management.service.UserDetailServiceImpl">
+        <beans:property name="sellersService" ref="sellerService"></beans:property>
+    </beans:bean>
+    <!--从dubbo注册中心中 引入使用的接口实现类-->
+    <!-- 引用dubbo 服务 -->
+    <dubbo:application name="client_manage_service" />
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    <dubbo:reference id="sellerService" interface="cn.edu.aynu.rjxy.management.service.SellersService"></dubbo:reference>
+</beans:beans>

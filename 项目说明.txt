@@ -1,0 +1,32 @@
+JUC包  了解原理实现
+
+
+portal-service 
+HomeDataServiceImpl{findByCityId：
+按照城市ID查找上映的电影，电影数据第一次查询时从数据库里查询，其余都是从缓存redis中取出{
+		List<TbHomeData> homeDataList = (List<TbHomeData>)
+				redisTemplate.boundHashOps("homeDataList").get(cityId);
+		}
+} 会在商家上映电影时：进行数据的同步，需要存homeData表，之后 查出缓存中的数据，操作集合更新，然后重新添加进去
+清除已经下映的数据 会设置定时任务 进行数据的移除操作 
+CityServiceImpl&&TypeServiceImpl{ findAll：
+同理，而且放到了一起{
+		List<TbCity> cityList = (List<TbCity>)
+			redisTemplate.boundHashOps("cityAndTypeList").get("cityList");
+		}//redisTemplate.boundHashOps("cityAndTypeList").get("typeList");
+	
+}
+
+
+manage-service 9001
+client-service 9004
+page-service 9003
+portal-service 9002
+
+sendEmail-service 9020
+
+client-web 9104
+portal-web 9103
+manage-web 9101
+sellse-web 9102
+  upload-8100

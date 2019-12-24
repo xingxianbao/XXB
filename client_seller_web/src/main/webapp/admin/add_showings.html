@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>场次添加</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+
+    <script type="text/javascript" src="../js/base_nopagination.js"></script>
+    <script type="text/javascript" src="../js/service/hallService.js"></script>
+	<script type="text/javascript" src="../js/service/movieService.js"></script>
+	<script type="text/javascript" src="../js/service/timetableService.js"></script>
+	<script type="text/javascript" src="../js/service/showingsService.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/showingsController.js"></script>
+
+    <!--//时间JS-->
+    <link type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+
+    <link href="../js/datejs/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.css" type="text/css"/>
+    <link href="../js/datejs/jQuery-Timepicker-Addon/demos.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+    <script src="../js/datejs/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <!--中文-->
+    <script src="../js/datejs/js/jquery.ui.datepicker-zh-CN.js.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/datejs/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript" charset="UTF-8"></script>
+
+
+    <script type="text/javascript">
+
+        jQuery(function () {
+            // 时间设置
+            jQuery('#time').datetimepicker({
+                timeFormat: "HH:mm:ss",
+                dateFormat: "yy-mm-dd"
+            });
+        });
+
+    </script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="cinema" ng-controller="showingsController"
+      ng-init="initGetList()">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+
+        <!--tab页-->
+        <div class="nav-tabs-custom">
+            <!--tab头-->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#home" data-toggle="tab">场次基本信息</a>
+                </li>
+            </ul>
+            <!--tab头/-->
+
+            <!--tab内容--> {{entity}}
+            <div class="tab-content">
+
+                <!--表单内容-->
+                <div class="tab-pane active" id="home">
+                    <div class="row data-type">
+                        <div class="col-md-2 title">放映电影</div>
+
+                        <div class="col-md-10 data">
+                            <table>
+                                <tr>
+                                    <td width="20%">
+                                        <select class="form-control" ng-model="movie" ng-change="setEntityMov()" ng-options
+                                                ="movie as movie.movName for movie in movieList">
+										</select>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div><hr>
+                    <div class="row data-type">
+                        <div class="col-md-2 title">放映影厅</div>
+
+                        <div class="col-md-10 data">
+                            <table>
+                                <tr>
+                                    <td width="20%">
+                                        <select class="form-control"  ng-model="hall" ng-change="setEntityHall()" ng-options
+                                                ="hall as (hall.hallName) for hall in hallList"
+												>
+										</select>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div><hr>
+                    <div class="row data-type">
+                        <div class="col-md-2 title">放映时间</div>
+
+                        <div class="col-md-10 data">
+                            <table>
+                                <tr>
+                                    <td align='left' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                                        onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
+                                        <input class="form-control" name="msgtime" id="time" placeholder="播放时间"></td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button ng-click="save()" class="btn btn-success" data-dismiss="modal"
+                            aria-hidden="true">
+                        保存
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>

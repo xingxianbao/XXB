@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="cn.edu.aynu.rjxy.listener"></context:component-scan>
+
+    <!--初始化active使用的连接工厂-->
+    <bean id="mQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <constructor-arg name="brokerURL" value="tcp://192.168.188.128:61616"></constructor-arg>
+    </bean>
+    <!--spring管理的连接工厂-->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="mQConnectionFactory"></property>
+    </bean>
+    <!--初始化一个生成页面的topic-->
+    <bean id="email_notice_queue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="email_notice_queue"></constructor-arg>
+    </bean>
+
+    <!--消费消息运行监听器的容器对象-->
+    <bean  class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+            <property name="connectionFactory" ref="connectionFactory"></property>
+            <property name="destination" ref="email_notice_queue"></property>
+            <property name="messageListener" ref="emailListener"></property>
+    </bean>
+    <!--初始化一个生成页面的topic-->
+    <bean id="email_code_queue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="email_code_queue"></constructor-arg>
+    </bean>
+
+    <!--消费消息运行监听器的容器对象-->
+    <bean  class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"></property>
+        <property name="destination" ref="email_code_queue"></property>
+        <property name="messageListener" ref="codeListener"></property>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--配置不需要拦截认证的资源-->
+    <http pattern="/login.html" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/images/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+
+    <!--配置http请求拦截的节点
+        use-expressions="false"  表示不应用框架的el表达式
+        intercept-url pattern="/**"  拦截路径 所有请求
+        access="ROLE_ADMIN"  表示只有用户拥有ROLE_ADMIN 角色才可以登陆
+                             角色字符串设置规则 必须ROLE_开头
+    -->
+    <http use-expressions="false">
+        <intercept-url pattern="/**" access="ROLE_ADMIN"></intercept-url>
+        <!--表示默认登陆表单-->
+        <form-login login-page="/login.html"
+                    default-target-url="/admin/index.html"
+                    always-use-default-target="true"
+                    authentication-failure-url="/login.html"/>
+        <!--csrf表示伪造跨域攻击 关闭规则-->
+        <csrf disabled="true"></csrf>
+        <!--配置同源策略否则页面的框架内页不显示-->
+        <headers>
+            <frame-options policy="SAMEORIGIN"></frame-options>
+        </headers>
+        <!--默认路径是logout 默认页面login.html-->
+        <logout logout-url="/logout"
+                 logout-success-url="/login.html"
+                 invalidate-session="true"/>
+    </http>
+
+    <!--配置权限框架的认证节点-->
+    <authentication-manager>
+        <authentication-provider>
+            <!--userService节点是权限框架用户认证业务类-->
+            <user-service>
+                <!--在程序启动初始化两个用户在内存中-->
+                <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+
+
+</beans:beans>

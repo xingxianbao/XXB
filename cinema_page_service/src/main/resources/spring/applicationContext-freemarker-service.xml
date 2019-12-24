@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--当前的servie业务模块注册到zookeeper 自身的端口是20882-->
+    <dubbo:protocol name="dubbo" port="20883"></dubbo:protocol>
+    <dubbo:application name="cinema_page_service"/>
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    <dubbo:annotation package="cn.edu.aynu.rjxy.page.service.impl" />
+    <bean id="freeMarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/"></property>
+    </bean>
+</beans>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+
+
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/service/movieService.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/movieController.js"></script>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="cinema" ng-controller="movieController">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">管理</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
+                            data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
+                    </button>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting">电影名称</th>
+                <th class="sorting">简介</th>
+                <th class="sorting">上映时间</th>
+                <th class="sorting">时长</th>
+                <th class="sorting">导演</th>
+                <th class="sorting">演员</th>
+                <th class="sorting">图片</th>
+                <th class="sorting">类型2D、3D</th>
+                <th class="sorting">国家</th>
+                <th class="sorting">类型ID</th>
+                <th class="sorting">是否可用</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="entity in list">
+                <td><input type="checkbox" ng-click="updateSelection($event,entity.mov_id)"></td>
+                <td>{{entity.movName}}</td>
+                <td><div style=" overflow-y:auto; overflow-x:auto; width:200px; height:100px;">{{entity.movIntroduce}}</div></td>
+                <td>{{entity.movIndate}}</td>
+                <td>{{entity.movTime}}</td>
+                <td>{{entity.movDirector}}</td>
+                <td>{{entity.movPerformer}}</td>
+                <td><img height="100" ng-src="{{entity.movPic1}}"></td>
+                <td>{{entity.movStyle}}</td>
+                <td>{{entity.country}}</td>
+                <td>{{entity.typeId}}</td>
+                <td>{{entity.isAble}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
+                            ng-click="findOne(entity.movId)">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+    </div>
+    <!-- 数据表格 /-->
+    <!-- 分页 -->
+    <tm-pagination conf="paginationConf"></tm-pagination>
+</div>
+<!-- /.box-body -->
+
+<!-- 编辑窗口 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">编辑</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped" width="800px">
+                    <tr>
+
+                        <td>电影名称</td>
+
+                        <td><input class="form-control" ng-model="entity.movName" placeholder="电影名称"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>简介</td>
+
+                        <td>
+                            <input class="form-control" ng-model="entity.movIntroduce" placeholder="简介">
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>上映时间</td>
+
+                        <td><input class="form-control" ng-model="entity.movIndate" placeholder="上映时间"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>时长</td>
+
+                        <td><input class="form-control" ng-model="entity.movTime" placeholder="时长"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>导演</td>
+
+                        <td><input class="form-control" ng-model="entity.movDirector" placeholder="导演"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>演员</td>
+
+                        <td><input class="form-control" ng-model="entity.movPerformer" placeholder="演员"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>图片</td>
+
+                        <td><input class="form-control" ng-model="entity.movPic1" placeholder="图片"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>图片集</td>
+
+                        <td><input class="form-control" ng-model="entity.movPic2" placeholder="图片集"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>类型2D、3D</td>
+
+                        <td><input class="form-control" ng-model="entity.movStyle" placeholder="类型2D、3D"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>国家</td>
+
+                        <td><input class="form-control" ng-model="entity.country" placeholder="国家"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>类型ID</td>
+
+                        <td><input class="form-control" ng-model="entity.typeId" placeholder="类型ID"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>是否可用</td>
+
+                        <td><input class="form-control" ng-model="entity.isAble" placeholder="是否可用"></td>
+
+                    </tr>
+                    <tr>
+
+                        <td>备选字段</td>
+
+                        <td><input class="form-control" ng-model="entity.spare" placeholder="备选字段"></td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

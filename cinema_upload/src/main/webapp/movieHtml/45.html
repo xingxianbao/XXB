@@ -1,0 +1,247 @@
+<!DOCTYPE HTML
+        <head>
+<title>Preview</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="../css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="../js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="../js/move-top.js"></script>
+<script type="text/javascript" src="../js/easing.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="headertop_desc">
+        <div class="wrap">
+            <div class="nav_list">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Sitemap</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="account_desc">
+                <ul>
+                    <li><a href="contact.html">Register</a></li>
+                    <li><a href="contact.html">Login</a></li>
+                    <li><a href="preview.html">Delivery</a></li>
+                    <li><a href="#">Checkout</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="header_top">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt=""/></a>
+            </div>
+            <div class="header_top_right">
+                <div class="cart">
+                    <p><span>Cart</span>
+                    <div id="dd" class="wrapper-dropdown-2"> (empty)
+                        <ul class="dropdown">
+                            <li>you have no items in your Shopping cart</li>
+                        </ul>
+                    </div>
+                    </p>
+                </div>
+                <div class="search_box">
+                    <form>
+                        <input type="text" value="Search" onfocus="this.value = '';"
+                               onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <script type="text/javascript">
+                function DropDown(el) {
+                    this.dd = el;
+                    this.initEvents();
+                }
+
+                DropDown.prototype = {
+                    initEvents: function () {
+                        var obj = this;
+
+                        obj.dd.on('click', function (event) {
+                            $(this).toggleClass('active');
+                            event.stopPropagation();
+                        });
+                    }
+                }
+
+                $(function () {
+
+                    var dd = new DropDown($('#dd'));
+
+                    $(document).click(function () {
+                        // all dropdowns
+                        $('.wrapper-dropdown-2').removeClass('active');
+                    });
+
+                });
+            </script>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="wrap">
+        <div class="content_top">
+            <div class="back-links">
+                <p><a href="index.html">Home</a> &gt;&gt;&gt;&gt; <a href="#" class="active">English</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            <div class="cont-desc span_1_of_2">
+                <div class="product-details">
+                    <div class="grid images_3_of_2">
+                        <img width="400px" height="400px" src="http://127.0.0.1:8100/upload/2019-12-19/1576758051914.jpg" alt=""/>
+                    </div>
+                    <div class="desc span_3_of_2">
+                        <h2>电影展示</h2>
+                        <div class="available">
+                            <ul>
+                                <li><span>影片名:</span>叶问4：完结篇</li>
+                                <li><span>上映时间:</span>2019-12-20 0:00:00</li>
+                                <li><span>时长:</span>&nbsp107分钟</li>
+                                <li><span>类型:</span>&nbsp2D</li>
+                                <li><span>国家:</span>&nbsp中国</li>
+                            </ul>
+                        </div>
+                        <div class="share-desc">
+                            <div class="button"><span><a href="#">去购票</a></span></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="product_desc">
+                    <h2>简介 :</h2>
+                    <p><span style="color:#333333;font-family:&quot;font-size:14px;background-color:#FFFFFF;">因故来到美国唐人街的叶问，意外卷入一场当地军方势力与华人武馆的纠纷，面对日益猖狂的民族歧视与压迫，叶问挺身而出，在美国海军陆战队军营拼死一战，以正宗咏春，向世界证明了中国功夫。</span><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span><img src="http://localhost:9101/plugins/kindeditor/plugins/emoticons/images/0.gif" border="0" alt="" /><span></span></p>
+                </div>
+                <hr>
+                <hr>
+                <div class="product_desc">
+                    <style>
+                        .director {
+                            float: left;
+                            padding-left: 10px;
+                        }
+
+                        .directorImg {
+                            width: 120px;
+                            height: 170px;
+                        }
+
+                        .parent {
+                            height: 600px;
+                            width: 500px;
+                            float: none;
+                        }
+                    </style>
+                    <h2>导演:</h2>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758122107.jpg"/>
+                            <p align="center">于伟信</p>
+                        </div>
+
+                    <div style="clear: both;">
+                        <hr>
+                    </div>
+
+                    <h2>导演:</h2>
+
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758205747.jpg"/>
+                            <p align="center">甄子丹</p>
+                        </div>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758218690.jpg"/>
+                            <p align="center">吴建豪</p>
+                        </div>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758239503.jpg"/>
+                            <p align="center">吴越</p>
+                        </div>
+
+
+                    <div style="clear: both;">
+                        <hr>
+                    </div>
+
+                    <h2>图集:</h2>
+
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758250829.jpg"/>
+                        </div>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758301838.jpg"/>
+                        </div>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758309083.jpg"/>
+                        </div>
+                        <div class="director">
+                            <img class="directorImg" src="http://127.0.0.1:8100/upload/2019-12-19/1576758316687.jpg"/>
+                        </div>
+                </div>
+            </div>
+
+            <div class="rightsidebar span_3_of_1 sidebar">
+                <h2>热播电影FreeMarker template error (DEBUG mode; use RETHROW in production!):
+The following has evaluated to null or missing:
+==> hotMovie  [in template "movie.ftl" at line 197, column 27]
+
+----
+Tip: If the failing expression is known to be legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
+----
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: ${hotMovie}  [in template "movie.ftl" at line 197, column 25]
+----
+
+Java stack trace (for programmers):
+----
+freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
+	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:131)
+	at freemarker.core.EvalUtil.coerceModelToString(EvalUtil.java:355)
+	at freemarker.core.Expression.evalAndCoerceToString(Expression.java:82)
+	at freemarker.core.DollarVariable.accept(DollarVariable.java:41)
+	at freemarker.core.Environment.visit(Environment.java:324)
+	at freemarker.core.MixedContent.accept(MixedContent.java:54)
+	at freemarker.core.Environment.visit(Environment.java:324)
+	at freemarker.core.Environment.process(Environment.java:302)
+	at freemarker.template.Template.process(Template.java:325)
+	at cn.edu.aynu.rjxy.page.service.impl.MoviePageServiceImpl.getMovieHTML(MoviePageServiceImpl.java:39)
+	at com.alibaba.dubbo.common.bytecode.Wrapper1.invokeMethod(Wrapper1.java)
+	at com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory$1.doInvoke(JavassistProxyFactory.java:47)
+	at com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker.invoke(AbstractProxyInvoker.java:76)
+	at com.alibaba.dubbo.config.invoker.DelegateProviderMetaDataInvoker.invoke(DelegateProviderMetaDataInvoker.java:52)
+	at com.alibaba.dubbo.rpc.protocol.InvokerWrapper.invoke(InvokerWrapper.java:56)
+	at com.alibaba.dubbo.rpc.filter.ExceptionFilter.invoke(ExceptionFilter.java:62)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.monitor.support.MonitorFilter.invoke(MonitorFilter.java:75)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.filter.TimeoutFilter.invoke(TimeoutFilter.java:42)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.protocol.dubbo.filter.TraceFilter.invoke(TraceFilter.java:78)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.filter.ContextFilter.invoke(ContextFilter.java:73)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.filter.GenericFilter.invoke(GenericFilter.java:138)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.filter.ClassLoaderFilter.invoke(ClassLoaderFilter.java:38)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.filter.EchoFilter.invoke(EchoFilter.java:38)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper$1.invoke(ProtocolFilterWrapper.java:72)
+	at com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol$1.reply(DubboProtocol.java:104)
+	at com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.handleRequest(HeaderExchangeHandler.java:96)
+	at com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler.received(HeaderExchangeHandler.java:173)
+	at com.alibaba.dubbo.remoting.transport.DecodeHandler.received(DecodeHandler.java:51)
+	at com.alibaba.dubbo.remoting.transport.dispatcher.ChannelEventRunnable.run(ChannelEventRunnable.java:57)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)

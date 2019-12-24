@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="client_manage_service" />
+        <module name="cinema_portal_web" />
+        <module name="cinema_dao" />
+        <module name="cinema_sendEmail_service" />
+        <module name="cinema_portal_interface" />
+        <module name="cinema_portal_service" />
+        <module name="client_manage_web" />
+        <module name="cinema_page_interface" />
+        <module name="cinema_page_service" />
+        <module name="client_manage_interface" />
+        <module name="cinema_common" />
+        <module name="cinema_pojo" />
+        <module name="cinema_client_interface" />
+        <module name="cinema_upload" />
+        <module name="client_seller_web" />
+        <module name="cinema_client_web" />
+        <module name="cinema_client_service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cinama_mongidb" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
